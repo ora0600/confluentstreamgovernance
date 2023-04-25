@@ -1,0 +1,5 @@
+#!/bin/bash
+export XX_CCLOUD_ENV=CMSTREAMGOVERNANCE
+export XX_CCLOUD_CLUSTERNAME=CMSTREAMGOVERNANCE-dedicated-gcp-europe-west1
+export XX_CCLOUD=gcp
+export XX_CCREGION=europe-west1

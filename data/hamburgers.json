@@ -1,0 +1,18 @@
+{
+      "schema":
+         "{
+                \"type\": \"record\",
+                \"name\": \"Hamburger\",
+                \"fields\":
+                  [
+                    {
+                      \"type\": \"string\",
+                      \"name\": \"Sandwich\"
+                    },
+                    {
+                      \"type\": \"string\",
+                      \"name\": \"Size\"
+                    }
+                  ]
+              }"
+    }

@@ -1,0 +1,10 @@
+[ {
+     "name" : "teamtopic",
+     "description" : "Team information as business metadatai for topic",
+     "attributeDefs" : [
+     { "name" : "teamName", "isOptional" : "true", "cardinality" : "SINGLE", "typeName" : "string", "options": {"maxStrLength": 25, "applicableEntityTypes": "[\"kafka_topic\"]"} },
+     { "name" : "slackChannel", "isOptional" : "true", "cardinality" : "SINGLE", "typeName" : "string", "options": {"maxStrLength": 30, "applicableEntityTypes": "[\"kafka_topic\"]"} },
+     { "name" : "email", "isOptional" : "true", "cardinality" : "SINGLE", "typeName" : "string", "options": {"maxStrLength": 30, "applicableEntityTypes": "[\"kafka_topic\"]"} }
+     ]
+   } ]
+

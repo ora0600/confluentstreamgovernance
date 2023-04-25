@@ -1,0 +1,19 @@
+{
+      "schema":
+         "{
+                \"type\": \"record\",
+                \"name\": \"webinar\",
+                \"namespace\":\"io.confluent.examples.clients.basicavro\",
+                \"fields\":
+                  [
+                    {
+                      \"type\": \"string\",
+                      \"name\": \"Speaker\"
+                    },
+                    {
+                      \"type\": \"string\",
+                      \"name\": \"quality\"
+                    }
+                  ]
+              }"
+    }

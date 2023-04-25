@@ -1,0 +1,9 @@
+[ {
+     "name" : "teamsr",
+     "description" : "Team information as business metadata for schemas",
+     "attributeDefs" : [
+     { "name" : "teamName", "isOptional" : "true", "cardinality" : "SINGLE", "typeName" : "string", "options": {"maxStrLength": 25, "applicableEntityTypes": "[\"sr_schema\"]"} },
+     { "name" : "slackChannel", "isOptional" : "true", "cardinality" : "SINGLE", "typeName" : "string", "options": {"maxStrLength": 30, "applicableEntityTypes": "[\"sr_schema\"]"} }
+     ]
+   } ]
+
