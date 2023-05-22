@@ -1,6 +1,6 @@
 [ {
     "entityType": "sr_schema",
-    "entityName": "100003",
+    "entityName": "100006",
     "typeName": "teamsr",
-    "attributes": {"teamName": "Design", "slackChannel": "Design-all"}
+    "attributes": {"teamName": "HaendlerIT", "teamsChannel": "HaendlerIT","ownerEmail":"haendlerIT@otto.de"}
   } ]

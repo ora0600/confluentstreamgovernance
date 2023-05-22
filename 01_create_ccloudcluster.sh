@@ -28,7 +28,7 @@ export CCLOUD_SRURL1=$(awk '/endpoint_url:/{print $NF}' srclusterid1)
 echo "srid=$CCLOUD_SRCLUSTERID1" >> env-vars-new
 echo "srurl=$CCLOUD_SRURL1" >> env-vars-new
 # Create SR APIKEY
-confluent api-key create --resource $CCLOUD_SRCLUSTERID1 --description "APKKEY for SR $CCLOUD_SRCLUSTERID1" -o yaml > srapi_key1
+confluent api-key create --resource $CCLOUD_SRCLUSTERID1 --description "APIKEY for SR $CCLOUD_SRCLUSTERID1" -o yaml > srapi_key1
 export CCLOUD_SRKEY1=$(awk '/key/{print $NF}' srapi_key1)
 export CCLOUD_SRSECRET1=$(awk '/secret/{print $NF}' srapi_key1)
 echo "srkey=$CCLOUD_SRKEY1" >> env-vars-new
@@ -36,8 +36,8 @@ echo "srsecret=$CCLOUD_SRSECRET1" >> env-vars-new
 
 # Cluster1
 echo "Create new cluster $XX_CCLOUD_CLUSTERNAME"
-confluent kafka cluster create $XX_CCLOUD_CLUSTERNAME --cloud "$XX_CCLOUD" --region "$XX_CCREGION" --type "basic" --environment $CCLOUD_ENVID1 -o yaml > clusterid1
-#confluent kafka cluster create $XX_CCLOUD_CLUSTERNAME --cloud "$XX_CCLOUD" --region "$XX_CCREGION" --type "dedicated" --availability "single-zone" --cku 1 --environment $CCLOUD_ENVID1 -o yaml > clusterid1
+# confluent kafka cluster create $XX_CCLOUD_CLUSTERNAME --cloud "$XX_CCLOUD" --region "$XX_CCREGION" --type "basic" --environment $CCLOUD_ENVID1 -o yaml > clusterid1
+confluent kafka cluster create $XX_CCLOUD_CLUSTERNAME --cloud "$XX_CCLOUD" --region "$XX_CCREGION" --type "dedicated" --availability "single-zone" --cku 1 --environment $CCLOUD_ENVID1 -o yaml > clusterid1
 # set cluster id as parameter
 export CCLOUD_CLUSTERID1=$(awk '/id:/{print $NF}' clusterid1)
 echo "clusterid=$CCLOUD_CLUSTERID1" >> env-vars-new
@@ -81,14 +81,11 @@ echo "*****      CREATE TOPICS      ******"
 echo "*************************************"
 # create topic
 # topic in ccloud in source
-kafka-topics --create --bootstrap-server $CCLOUD_CLUSTERID1_BOOTSTRAP --topic users \
---replication-factor 3 --partitions 1 --command-config ./ccloud_user1.properties 
+confluent kafka topic create users --environment $CCLOUD_ENVID1 --cluster $CCLOUD_CLUSTERID1 --partitions 1
 echo "Topic users created"
-kafka-topics --create --bootstrap-server $CCLOUD_CLUSTERID1_BOOTSTRAP --topic pageviews \
---replication-factor 3 --partitions 1 --command-config ./ccloud_user1.properties 
+confluent kafka topic create pageviews --environment $CCLOUD_ENVID1 --cluster $CCLOUD_CLUSTERID1 --partitions 1
 echo "Topic pageviews created"
-kafka-topics --create --bootstrap-server $CCLOUD_CLUSTERID1_BOOTSTRAP --topic cmtest1 \
---replication-factor 3 --partitions 1 --command-config ./ccloud_user1.properties 
+confluent kafka topic create cmtest1 --environment $CCLOUD_ENVID1 --cluster $CCLOUD_CLUSTERID1 --partitions 1
 echo "Topic cmtest1 created"
 echo "*************************************"
 echo "*****      TOPICS  CREATED     ******"
@@ -259,8 +256,8 @@ curl --silent -u $CCLOUD_SRKEY1:$CCLOUD_SRSECRET1 --header 'Content-Type: applic
 curl --silent -u $CCLOUD_SRKEY1:$CCLOUD_SRSECRET1 -X POST -H "Content-Type: application/json" \
 --data @data/hamburgers.json $CCLOUD_SRURL1/subjects/Hamburgers/versions
 # Business Metadata for schema
-curl --silent -u  $CCLOUD_SRKEY1:$CCLOUD_SRSECRET1  -X POST -H "Content-Type: application/json" \
---data @data/teamsr.txt $CCLOUD_SRURL1/catalog/v1/types/businessmetadatadefs | jq .
+curl --silent -u  $CCLOUD_SRKEY1:$CCLOUD_SRSECRET1  -X POST -H "Content-Type: application/json" --data @data/teamsr.txt $CCLOUD_SRURL1/catalog/v1/types/businessmetadatadefs | jq .
+
 ### Geht noch nicht muss ich nochmal testen see https://docs.confluent.io/cloud/current/stream-governance/stream-catalog-rest-apis.html#add-business-metadata-to-a-topic
 # Business Data for a topic 
 curl --silent -u  $CCLOUD_SRKEY1:$CCLOUD_SRSECRET1  -X POST -H "Content-Type: application/json" \
