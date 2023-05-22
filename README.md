@@ -215,6 +215,28 @@ To import a topic with schema e.g. do the following
 confluent asyncapi import --file data/AccountService2.yaml --kafka-api-key $CCLOUD_KEY1 --schema-registry-api-key $CCLOUD_SRKEY1 --schema-registry-api-secret $CCLOUD_SRSECRET1
 ```
 
+## Schema Rules
+We prepared a simple demo with Schema Rules. Schema Rules are execited on the client.
+Please see [here](https://docs.confluent.io/cloud/current/sr/fundamentals/data-contracts.html#quick-start) the documented demo.
+
+Requirements:
+
+* Please close iterm2 application first
+* Have Confluent Platform 7.4 installed (for the Rule classes)
+
+Rund the Demo:
+```bash
+cd Rules/
+# Start Ruleset Demo
+./00_autostart_schemarules.sh
+```
+
+Now enter in the producer window
+* {"f1": "success"}
+* {"f1": "this will fail, because lengtg is >=10"}
+
+The second attempt should fail in the producer.
+
 # Stop Demo
 first kill the terminal windows from the clients with CTRL+C or stop iTerms completely 
 ```bash

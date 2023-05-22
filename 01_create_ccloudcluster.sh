@@ -41,10 +41,10 @@ confluent kafka cluster create $XX_CCLOUD_CLUSTERNAME --cloud "$XX_CCLOUD" --reg
 # set cluster id as parameter
 export CCLOUD_CLUSTERID1=$(awk '/id:/{print $NF}' clusterid1)
 echo "clusterid=$CCLOUD_CLUSTERID1" >> env-vars-new
-#echo "⌛ Give cluster 15 minutes..."
-#sleep 900
-echo "⌛ Give cluster 2 minutes..."
-sleep 120
+echo "⌛ Give cluster 15 minutes..."
+sleep 900
+#echo "⌛ Give cluster 2 minutes..."
+#sleep 120
 confluent kafka cluster describe $CCLOUD_CLUSTERID1 -o yaml > clusterid1
 export CCLOUD_CLUSTERID1_BOOTSTRAP=$(awk '/endpoint: SASL_SSL:\/\//{print $NF}' clusterid1 | sed 's/SASL_SSL:\/\///g')
 export CCLOUD_CLUSTERID1_REST=$(awk '/rest_endpoint:/{print $NF}' clusterid1)
@@ -71,7 +71,10 @@ request.timeout.ms=20000
 bootstrap.servers=$CCLOUD_CLUSTERID1_BOOTSTRAP
 retry.backoff.ms=500
 sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username=\"$CCLOUD_KEY1\" password=\"$CCLOUD_SECRET1\";
-security.protocol=SASL_SSL" > ccloud_user1.properties
+security.protocol=SASL_SSL
+client.dns.lookup=use_all_dns_ips
+session.timeout.ms=45000
+acks=all" > ccloud_user1.properties
 
 echo "*************************************"
 echo "*****      CREATE TOPICS      ******"
