@@ -1,4 +1,4 @@
-# Confluence Stream Governance Demo
+# Confluent Stream Governance Demo
 
 This demo shows a couple of useful features around Confluent Stream Governance.
 A Confluent Cloud Cluster with Conenctors, ksqlDB Cluster and Schema Registry will be created. A handful tools will give all you need to demostrate or proof the features.
